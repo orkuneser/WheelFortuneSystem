@@ -11,7 +11,8 @@ public class UiPanel : MonoBehaviour
     private CanvasGroup _canvasGroup;
     protected CanvasGroup CanvasGroup => _canvasGroup ??= GetComponent<CanvasGroup>();
 
-    public bool IsVisible => CanvasGroup != null && CanvasGroup.alpha > 0.01f;
+    private bool _isVisible;
+    protected bool IsVisible => _isVisible;
 
     [ButtonGroup("PanelVisibility")]
     public virtual void Show()
@@ -19,6 +20,7 @@ public class UiPanel : MonoBehaviour
         if (IsVisible)
             return;
 
+        _isVisible = true;
         IUiPanelAnimation animation = GetComponent<IUiPanelAnimation>();
         if (animation != null)
             animation.DoShowAnimation();
@@ -34,6 +36,7 @@ public class UiPanel : MonoBehaviour
         if (!IsVisible)
             return;
 
+        _isVisible = false;
         IUiPanelAnimation animation = GetComponent<IUiPanelAnimation>();
         if (animation != null)
             animation.DoHideAnimation();
