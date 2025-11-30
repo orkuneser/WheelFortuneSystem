@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Sirenix.OdinInspector;
 
 [RequireComponent(typeof(Button))]
 public class UiSpinButton : BaseMultiEventListener

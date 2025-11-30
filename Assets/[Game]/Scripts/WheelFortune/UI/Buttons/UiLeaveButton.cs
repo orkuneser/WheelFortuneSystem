@@ -33,7 +33,7 @@ public class UiLeaveButton : BaseMultiEventListener
 
     private void CheckZoneForInteractable()
     {
-        ZoneSystem zone = ZoneSystem.Instance;
+        ZoneController zone = ZoneController.Instance;
         if (zone.IsSafeZone || zone.IsSuperZone)
         {
             UpdateInteractable(true);

@@ -10,7 +10,7 @@ public class SpinConfig : ScriptableObject
     [Title("Indicator"), InlineEditor(InlineEditorModes.LargePreview)]
     public Sprite SpinIndicatorSprite;
     [Title("Text Color")]
-    public Color DisplayTextColor;
+    public Color SpinTypeTextColor;
     [Title("Spin Name")]
     public string SpinName;
 

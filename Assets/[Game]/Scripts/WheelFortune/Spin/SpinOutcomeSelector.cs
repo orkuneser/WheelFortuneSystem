@@ -58,14 +58,14 @@ public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
         if (slot.IsBomb)
         {
             EventManager.Raise(new BombHitEvent());
-            ZoneSystem.Instance.NextZone();
+            ZoneController.Instance.NextZone();
             return;
         }
 
         int amount = CalculateZoneScaledReward(slot.RewardAmount);
         EventManager.Raise(new RewardEarnedEvent(amount));
 
-        ZoneSystem.Instance.NextZone();
+        ZoneController.Instance.NextZone();
     }
 
     private int GetIndexFromAngle(float finalAngle, int sliceCount)
@@ -87,10 +87,10 @@ public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
 
     private int CalculateZoneScaledReward(int baseAmount)
     {
-        int zone = Mathf.Max(1, ZoneSystem.Instance.CurrentZone);
+        int zone = Mathf.Max(1, ZoneController.Instance.CurrentZone);
 
         int multiplier = zone;
-        if (ZoneSystem.Instance.IsSuperZone)
+        if (ZoneController.Instance.IsSuperZone)
             multiplier *= 2;
 
         return baseAmount * multiplier;

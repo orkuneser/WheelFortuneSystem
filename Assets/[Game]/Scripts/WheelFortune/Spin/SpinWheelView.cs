@@ -81,7 +81,7 @@ public class SpinWheelView : BaseMultiEventListener
         if (_spinTypeText != null)
         {
             _spinTypeText.SetText(cfg.SpinName);
-            _spinTypeText.color = cfg.DisplayTextColor;
+            _spinTypeText.color = cfg.SpinTypeTextColor;
         }
 
         EventManager.Raise(new SpinSlotsUpdatedEvent(_shuffledSlots));
