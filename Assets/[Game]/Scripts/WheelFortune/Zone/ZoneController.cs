@@ -31,10 +31,10 @@ public class ZoneController : Singleton<ZoneController>
             return Color.white;
 
         if (number % 30 == 0)
-            return ProgressBarConfig.SafeZoneColor;
+            return ProgressBarConfig.SuperZoneColor;
 
         if (number % 5 == 0)
-            return ProgressBarConfig.SuperZoneColor;
+            return ProgressBarConfig.SafeZoneColor;
 
         return ProgressBarConfig.NormalZoneColor;
     }
