@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ZoneSystem : MonoBehaviour
+public class ZoneSystem : Singleton<ZoneSystem>
 {
     [SerializeField] private int startZone = 1;
 

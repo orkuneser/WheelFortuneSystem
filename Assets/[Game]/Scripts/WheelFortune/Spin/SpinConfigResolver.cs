@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class SpinConfigResolver : MonoBehaviour
 {
-    [SerializeField] private ZoneSystem _zoneSystem;
     [SerializeField] private SpinConfig _normalConfig;
     [SerializeField] private SpinConfig _safeConfig;
     [SerializeField] private SpinConfig _superConfig;
 
-    public SpinConfig CurrentConfig => ResolveConfig(_zoneSystem.CurrentZone);
+    public SpinConfig CurrentConfig => ResolveConfig(ZoneSystem.Instance.CurrentZone);
 
     public SpinConfig ResolveConfig(int zone)
     {

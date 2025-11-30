@@ -4,7 +4,6 @@ using Random = UnityEngine.Random;
 
 public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
 {
-    [SerializeField] private ZoneSystem _zoneSystem;
     [SerializeField] private int baseFullRotations = 6;
 
     private SpinSlotItemConfig[] _currentSlots = Array.Empty<SpinSlotItemConfig>();
@@ -59,14 +58,14 @@ public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
         if (slot.IsBomb)
         {
             EventManager.Raise(new BombHitEvent());
-            _zoneSystem.NextZone();
+            ZoneSystem.Instance.NextZone();
             return;
         }
 
         int amount = CalculateZoneScaledReward(slot.RewardAmount);
         EventManager.Raise(new RewardEarnedEvent(amount));
 
-        _zoneSystem.NextZone();
+        ZoneSystem.Instance.NextZone();
     }
 
     private int GetIndexFromAngle(float finalAngle, int sliceCount)
@@ -88,13 +87,10 @@ public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
 
     private int CalculateZoneScaledReward(int baseAmount)
     {
-        if (_zoneSystem == null)
-            return baseAmount;
-
-        int zone = Mathf.Max(1, _zoneSystem.CurrentZone);
+        int zone = Mathf.Max(1, ZoneSystem.Instance.CurrentZone);
 
         int multiplier = zone;
-        if (_zoneSystem.IsSuperZone)
+        if (ZoneSystem.Instance.IsSuperZone)
             multiplier *= 2;
 
         return baseAmount * multiplier;
