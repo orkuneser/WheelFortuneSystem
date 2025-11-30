@@ -15,4 +15,13 @@ MonoBehaviour:
   SpinSprite: {fileID: 21300000, guid: d88404af94fe643b3a0eb70cbaede1e4, type: 3}
   SpinIndicatorSprite: {fileID: 21300000, guid: 1b42e67d856b244638d15e6e14626a2c, type: 3}
   DisplayTextColor: {r: 0.5058824, g: 0.5019608, b: 0.5058824, a: 1}
-  SlotItemConfigs: []
+  SpinName: SILVER SPIN
+  SlotItemConfigs:
+  - {fileID: 11400000, guid: 449787fc8377443b6832a79d9a9a3f7f, type: 2}
+  - {fileID: 11400000, guid: 6c54c56360715421ea30dc5e78303dca, type: 2}
+  - {fileID: 11400000, guid: ada88ab018f2b402e8e69f9450473194, type: 2}
+  - {fileID: 11400000, guid: 30cf0061ac9d64b46ac2e7fe67a0895d, type: 2}
+  - {fileID: 11400000, guid: 12f8211ca2b9a4b5883f83ce2c8345d9, type: 2}
+  - {fileID: 11400000, guid: e8aeef5bd046b41a6b71afd14a7af481, type: 2}
+  - {fileID: 11400000, guid: 30f2a6a5cb76649bcb605b8b10a4b926, type: 2}
+  - {fileID: 11400000, guid: 30cf0061ac9d64b46ac2e7fe67a0895d, type: 2}

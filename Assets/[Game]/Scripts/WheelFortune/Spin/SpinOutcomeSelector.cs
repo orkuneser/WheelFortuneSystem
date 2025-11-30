@@ -2,74 +2,71 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class SpinOutcomeSelector : MonoBehaviour, IOutcomeSelector
+public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
 {
-    [SerializeField] private SliceGroupConfig _sliceGroupConfig;
-    [SerializeField] private ZoneSystem zoneSystem;
+    [SerializeField] private ZoneSystem _zoneSystem;
     [SerializeField] private int baseFullRotations = 6;
 
-    private float _anglePerSlice;
+    private SpinSlotItemConfig[] _currentSlots = Array.Empty<SpinSlotItemConfig>();
+    private float _anglePerSlice = 360f;
     private float _extraRotationDegrees;
 
     private void Awake()
     {
-        int count = _sliceGroupConfig.SliceConfigs.Length;
-        _anglePerSlice = 360f / Mathf.Max(1, count);
         _extraRotationDegrees = 360f * Mathf.Max(1, baseFullRotations);
+    }
+
+    private void OnEnable()
+    {
+        AddHandler<SpinSlotsUpdatedEvent>(OnSpinSlotsUpdated);
+    }
+
+    private void OnSpinSlotsUpdated(SpinSlotsUpdatedEvent spinSlotsUpdated)
+    {
+        _currentSlots = spinSlotsUpdated.Slots ?? Array.Empty<SpinSlotItemConfig>();
+
+        int count = Mathf.Max(1, _currentSlots.Length);
+        _anglePerSlice = 360f / count;
     }
 
     public float GenerateTargetAngle()
     {
-        var allSlices = _sliceGroupConfig.SliceConfigs;
-        var selectable = allSlices;
-
-        if (zoneSystem.IsSafeZone || zoneSystem.IsSuperZone)
-        {
-            selectable = FilterBombs(allSlices);
-        }
-
-        if (selectable == null || selectable.Length == 0)
-        {
-            Debug.LogError($"{nameof(SpinOutcomeSelector)}: No selectable slices configured.");
+        if (_currentSlots == null || _currentSlots.Length == 0)
             return _extraRotationDegrees;
-        }
 
-        var chosen = selectable[Random.Range(0, selectable.Length)];
-
-        int index = GetSliceIndex(chosen);
+        var chosen = _currentSlots[Random.Range(0, _currentSlots.Length)];
+        int index = Array.IndexOf(_currentSlots, chosen);
         if (index < 0)
-        {
-            Debug.LogError($"{nameof(SpinOutcomeSelector)}: Chosen slice not found in SliceGroupConfig.");
             index = 0;
-        }
 
         return CalculateAngleForSlice(index);
     }
 
     public void ResolveOutcome(float finalAngle)
     {
-        var allSlices = _sliceGroupConfig.SliceConfigs;
-        if (allSlices == null || allSlices.Length == 0)
+        if (_currentSlots == null || _currentSlots.Length == 0)
             return;
 
-        int sliceCount = allSlices.Length;
+        int sliceCount = _currentSlots.Length;
         int index = GetIndexFromAngle(finalAngle, sliceCount);
         if (index < 0 || index >= sliceCount)
             return;
 
-        var slice = allSlices[index];
+        var slot = _currentSlots[index];
+        if (slot == null)
+            return;
 
-        if (slice.IsBomb)
+        if (slot.IsBomb)
         {
             EventManager.Raise(new BombHitEvent());
-            zoneSystem.NextZone();
+            _zoneSystem.NextZone();
             return;
         }
 
-        int amount = CalculateZoneScaledReward(slice.RewardAmount);
+        int amount = CalculateZoneScaledReward(slot.RewardAmount);
         EventManager.Raise(new RewardEarnedEvent(amount));
 
-        zoneSystem.NextZone();
+        _zoneSystem.NextZone();
     }
 
     private int GetIndexFromAngle(float finalAngle, int sliceCount)
@@ -91,30 +88,15 @@ public class SpinOutcomeSelector : MonoBehaviour, IOutcomeSelector
 
     private int CalculateZoneScaledReward(int baseAmount)
     {
-        int zone = Mathf.Max(1, zoneSystem.CurrentZone);
+        if (_zoneSystem == null)
+            return baseAmount;
+
+        int zone = Mathf.Max(1, _zoneSystem.CurrentZone);
 
         int multiplier = zone;
-
-        if (zoneSystem.IsSuperZone)
+        if (_zoneSystem.IsSuperZone)
             multiplier *= 2;
 
         return baseAmount * multiplier;
-    }
-
-    private SpinSlotItemConfig[] FilterBombs(SpinSlotItemConfig[] arr)
-    {
-        return Array.FindAll(arr, s => !s.IsBomb);
-    }
-
-    private int GetSliceIndex(SpinSlotItemConfig slice)
-    {
-        var arr = _sliceGroupConfig.SliceConfigs;
-        for (int i = 0; i < arr.Length; i++)
-        {
-            if (arr[i] == slice)
-                return i;
-        }
-
-        return -1;
     }
 }

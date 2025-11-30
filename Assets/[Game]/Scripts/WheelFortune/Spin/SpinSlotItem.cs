@@ -1,9 +1,18 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
+using TMPro;
+using UnityEngine.UI;
 
 public class SpinSlotItem : BaseMultiEventListener
 {
+    [Title("Collider")]
     [SerializeField] private BoxCollider2D _collider;
+
+    [Title("Visuals")]
+    [SerializeField] private Image _iconImage;
+    [SerializeField] private TMP_Text _rewardText;
+
+    private SpinSlotItemConfig _config;
 
     private void OnValidate()
     {
@@ -17,13 +26,31 @@ public class SpinSlotItem : BaseMultiEventListener
         AddHandler<SpinCompletedEvent>(OnSpinCompleted);
     }
 
+    public void Init(SpinSlotItemConfig config, int displayAmount)
+    {
+        _config = config;
+
+        if (_iconImage != null)
+            _iconImage.sprite = config.Icon;
+
+        if (_rewardText != null)
+        {
+            if (config.IsBomb)
+                _rewardText.text = config.ItemName;
+            else
+                _rewardText.text = "X" + displayAmount;
+        }
+    }
+
     private void OnSpinStarted(SpinStartedEvent startedEvent)
     {
-        _collider.enabled = true;
+        if (_collider != null)
+            _collider.enabled = true;
     }
 
     private void OnSpinCompleted(SpinCompletedEvent completedEvent)
     {
-        _collider.enabled = false;
+        if (_collider != null)
+            _collider.enabled = false;
     }
 }

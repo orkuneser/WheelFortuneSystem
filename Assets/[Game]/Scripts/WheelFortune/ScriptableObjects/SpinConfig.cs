@@ -6,11 +6,13 @@ public class SpinConfig : ScriptableObject
 {
     [Title("VISUAL CONFIG")]
     [Title("Spin"), InlineEditor(InlineEditorModes.LargePreview)]
-    [SerializeField] private Sprite SpinSprite;
+    public Sprite SpinSprite;
     [Title("Indicator"), InlineEditor(InlineEditorModes.LargePreview)]
-    [SerializeField] private Sprite SpinIndicatorSprite;
+    public Sprite SpinIndicatorSprite;
     [Title("Text Color")]
-    [SerializeField] private Color DisplayTextColor;
+    public Color DisplayTextColor;
+    [Title("Spin Name")]
+    public string SpinName;
 
     [Title("Slot Items")]
     public SpinSlotItemConfig[] SlotItemConfigs;

@@ -9,7 +9,7 @@ public class SpinController : BaseEventListener<SpinCompletedEvent>
 
     private ISpinRotator _rotator;
     private IOutcomeSelector _outcomeSelector;
-     
+
     private void OnValidate()
     {
         AutoAssignInterface<ISpinRotator>(ref _rotatorSource);
@@ -23,36 +23,11 @@ public class SpinController : BaseEventListener<SpinCompletedEvent>
 
     private void CacheInterfaces()
     {
-        if (_rotatorSource != null)
-            _rotator = _rotatorSource as ISpinRotator;
+        if (_rotatorSource is ISpinRotator rotator)
+            _rotator = rotator;
 
-        if (_outcomeSelectorSource != null)
-            _outcomeSelector = _outcomeSelectorSource as IOutcomeSelector;
-
-#if UNITY_EDITOR
-        if (_rotator == null)
-            Debug.LogError($"{nameof(SpinController)}: rotatorSource does not implement {nameof(ISpinRotator)}.", this);
-
-        if (_outcomeSelector == null)
-            Debug.LogError($"{nameof(SpinController)}: outcomeSelectorSource does not implement {nameof(IOutcomeSelector)}.", this);
-#endif
-    }
-
-    private void AutoAssignInterface<TInterface>(ref MonoBehaviour source)
-        where TInterface : class
-    {
-        if (source != null && source is TInterface)
-            return;
-
-        var components = GetComponentsInChildren<MonoBehaviour>(true);
-        foreach (var comp in components)
-        {
-            if (comp is TInterface)
-            {
-                source = comp;
-                break;
-            }
-        }
+        if (_outcomeSelectorSource is IOutcomeSelector selector)
+            _outcomeSelector = selector;
     }
 
     [Button]
@@ -82,5 +57,15 @@ public class SpinController : BaseEventListener<SpinCompletedEvent>
             return;
 
         _outcomeSelector.ResolveOutcome(completedEvent.FinalAngle);
+    }
+
+    private void AutoAssignInterface<TInterface>(ref MonoBehaviour source)
+    {
+        if (source != null && source is TInterface)
+            return;
+
+        var component = FindFirstObjectByType<MonoBehaviour>();
+        if (component is TInterface)
+            source = component;
     }
 }
