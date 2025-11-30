@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31429e50112f4efca47cadef6b11388, type: 3}
   m_Name: Slice_Knife_Point
   m_EditorClassIdentifier: 
-  Id: knife point
   Icon: {fileID: 21300000, guid: 335ae52f9f1004a27b25a0b7481341d8, type: 3}
+  ItemName: Knife Points
   IsBomb: 0
   RewardAmount: 15

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b31429e50112f4efca47cadef6b11388, type: 3}
-  m_Name: Slice_Chest_Small
+  m_Name: Slice_Sniper_Point
   m_EditorClassIdentifier: 
-  Id: chest small
-  Icon: {fileID: 21300000, guid: 8c698464d2eff43a6ad64ada1d0616c1, type: 3}
+  Icon: {fileID: 21300000, guid: 7c2c29d1911f64587b9a0a48e3d01d28, type: 3}
+  ItemName: Sniper Points
   IsBomb: 0
-  RewardAmount: 1
+  RewardAmount: 10
