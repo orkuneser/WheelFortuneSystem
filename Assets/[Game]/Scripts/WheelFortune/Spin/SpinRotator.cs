@@ -4,10 +4,8 @@ using DG.Tweening;
 public class SpinRotator : MonoBehaviour, ISpinRotator
 {
     [SerializeField] private Transform wheelRoot;
-
-    private Tween _tween;
     public bool IsSpinning { get; private set; }
-
+    private Tween _tween;
     private float _finalAngle;
 
     private void OnDisable()
@@ -25,7 +23,6 @@ public class SpinRotator : MonoBehaviour, ISpinRotator
         _finalAngle = targetAngle;
 
         _tween?.Kill();
-
         _tween = wheelRoot
             .DOLocalRotate(
                 new Vector3(0f, 0f, targetAngle),

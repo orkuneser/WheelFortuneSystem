@@ -3229,7 +3229,7 @@ RectTransform:
   m_Children:
   - {fileID: 814617750}
   m_Father: {fileID: 882454158}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3647,9 +3647,9 @@ RectTransform:
   - {fileID: 1125881416}
   - {fileID: 76387870}
   - {fileID: 1117096204}
+  - {fileID: 1561151521}
   - {fileID: 839891171}
   - {fileID: 2131204172}
-  - {fileID: 1561151521}
   - {fileID: 1357647549}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -6716,6 +6716,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProgressBarConfig: {fileID: 11400000, guid: dabf728c16bd44dbe90685ae873737fc, type: 2}
+  _safeZoneInterval: 5
+  _superZoneInterval: 30
   _startZone: 1
 --- !u!1 &1356414846
 GameObject:
@@ -7926,6 +7928,7 @@ GameObject:
   - component: {fileID: 1561151521}
   - component: {fileID: 1561151523}
   - component: {fileID: 1561151524}
+  - component: {fileID: 1561151525}
   m_Layer: 5
   m_Name: ui_layoutgroup_zone_info_root
   m_TagString: Untagged
@@ -7948,7 +7951,7 @@ RectTransform:
   - {fileID: 534442857}
   - {fileID: 486842635}
   m_Father: {fileID: 882454158}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -7989,6 +7992,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1561151525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561151520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5876833ef54254b7e386736e0de78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _safeZoneText: {fileID: 1028161131}
+  _superZoneText: {fileID: 1940744438}
 --- !u!1 &1600220635
 GameObject:
   m_ObjectHideFlags: 0
@@ -9695,7 +9712,7 @@ RectTransform:
   - {fileID: 348110785}
   - {fileID: 882746484}
   m_Father: {fileID: 882454158}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}

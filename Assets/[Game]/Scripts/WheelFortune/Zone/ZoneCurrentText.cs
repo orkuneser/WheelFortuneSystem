@@ -16,9 +16,9 @@ public class ZoneCurrentText : BaseEventListener<ZoneChangedEvent>
         Refresh(ZoneController.Instance.CurrentZone);
     }
 
-    protected override void OnEvent(ZoneChangedEvent evt)
+    protected override void OnEvent(ZoneChangedEvent changedEvent)
     {
-        Refresh(evt.Zone);
+        Refresh(changedEvent.Zone);
     }
 
     private void Refresh(int zone)

@@ -16,16 +16,13 @@ public class UiSpinButton : BaseMultiEventListener
             _spinController = FindAnyObjectByType<SpinController>();
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         if (_button == null || _spinController == null)
             return;
 
         _button.onClick.AddListener(OnClicked);
-    }
 
-    private void OnEnable()
-    {
         AddHandler<SpinStartedEvent>(OnSpinStarted);
         AddHandler<SpinCompletedEvent>(OnSpinCompleted);
     }
