@@ -5,8 +5,8 @@ using Sirenix.OdinInspector;
 [RequireComponent(typeof(Button))]
 public class UiSpinButton : BaseMultiEventListener
 {
-    [SerializeField, Required] private Button _button;
-    [SerializeField, Required] private SpinController _spinController;
+    [SerializeField] private Button _button;
+    [SerializeField] private SpinController _spinController;
 
     private void OnValidate()
     {
