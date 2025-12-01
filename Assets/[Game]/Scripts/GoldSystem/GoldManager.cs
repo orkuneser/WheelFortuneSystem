@@ -30,7 +30,7 @@ public class GoldManager : Singleton<GoldManager>
 
     private void LoadGoldAmount()
     {
-        _goldAmount = PlayerPrefs.GetInt(PlayerPrefsKeys.GOLDAMOUNTKEY, _defaultGold);
+        GoldAmount = PlayerPrefs.GetInt(PlayerPrefsKeys.GOLDAMOUNTKEY, _defaultGold);
     }
 
     private void Save()
@@ -43,7 +43,7 @@ public class GoldManager : Singleton<GoldManager>
     public void Add(int amount)
     {
         if (amount <= 0) return;
-        _goldAmount += amount;
+        GoldAmount += amount;
     }
 
     [Button]

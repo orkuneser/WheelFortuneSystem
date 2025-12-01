@@ -1,7 +1,8 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
+using DG.Tweening;
 
-public class SpinController : BaseEventListener<SpinCompletedEvent>
+public class SpinController : BaseMultiEventListener
 {
     [Title("Spin Refs")]
     [SerializeField] private MonoBehaviour _rotatorSource;          // ISpinRotator
@@ -19,6 +20,12 @@ public class SpinController : BaseEventListener<SpinCompletedEvent>
     private void Awake()
     {
         CacheInterfaces();
+    }
+
+    private void OnEnable()
+    {
+        AddHandler<SpinCompletedEvent>(OnSpinCompleted);
+        AddHandler<RewardEarnedEvent>(OnRewardEarned);
     }
 
     private void CacheInterfaces()
@@ -42,13 +49,16 @@ public class SpinController : BaseEventListener<SpinCompletedEvent>
         if (_rotator.IsSpinning)
             return;
 
+        // UI elemanlarını kilitlemek için event fırlatıyoruz
         EventManager.Raise(new SpinStartedEvent());
 
+        // Hedef açıyı belirleyip döndürmeye başla
         float angle = _outcomeSelector.GenerateTargetAngle();
         _rotator.RotateTo(angle, 2f);
     }
 
-    protected override void OnEvent(SpinCompletedEvent completedEvent)
+    // Çark durduğunda çalışır
+    private void OnSpinCompleted(SpinCompletedEvent completedEvent)
     {
         if (_outcomeSelector == null)
             CacheInterfaces();
@@ -57,6 +67,17 @@ public class SpinController : BaseEventListener<SpinCompletedEvent>
             return;
 
         _outcomeSelector.ResolveOutcome(completedEvent.FinalAngle);
+    }
+
+    private void OnRewardEarned(RewardEarnedEvent evt)
+    {
+        DOVirtual.DelayedCall(1.5f, () =>
+        {
+            if (ZoneController.Instance != null)
+            {
+                ZoneController.Instance.NextZone();
+            }
+        });
     }
 
     private void AutoAssignInterface<TInterface>(ref MonoBehaviour source)

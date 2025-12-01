@@ -13,6 +13,12 @@ public class UiPanel : MonoBehaviour
 
     private bool _isVisible;
     protected bool IsVisible => _isVisible;
+    protected IUiPanelAnimation _panelAnimation;
+
+    protected virtual void Awake()
+    {
+        _panelAnimation = GetComponent<IUiPanelAnimation>();
+    }
 
     [ButtonGroup("PanelVisibility")]
     public virtual void Show()
@@ -21,9 +27,8 @@ public class UiPanel : MonoBehaviour
             return;
 
         _isVisible = true;
-        IUiPanelAnimation animation = GetComponent<IUiPanelAnimation>();
-        if (animation != null)
-            animation.DoShowAnimation();
+        if (_panelAnimation != null)
+            _panelAnimation.DoShowAnimation();
         else
             SetPanel(1f, true, true);
 

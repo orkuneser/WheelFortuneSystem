@@ -58,14 +58,11 @@ public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
         if (slot.IsBomb)
         {
             EventManager.Raise(new BombHitEvent());
-            ZoneController.Instance.NextZone();
             return;
         }
 
         int amount = CalculateZoneScaledReward(slot.RewardAmount);
         EventManager.Raise(new RewardEarnedEvent(amount));
-
-        ZoneController.Instance.NextZone();
     }
 
     private int GetIndexFromAngle(float finalAngle, int sliceCount)

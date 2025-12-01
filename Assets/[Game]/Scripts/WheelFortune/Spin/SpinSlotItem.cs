@@ -38,7 +38,7 @@ public class SpinSlotItem : BaseMultiEventListener
             if (config.IsBomb)
                 _rewardText.text = config.ItemName;
             else
-                _rewardText.text = "X" + displayAmount;
+                _rewardText.text = "X" + ScoreFormatter.FormatF2(displayAmount);
         }
     }
 
