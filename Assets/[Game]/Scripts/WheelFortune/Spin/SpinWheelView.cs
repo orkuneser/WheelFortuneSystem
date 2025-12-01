@@ -15,7 +15,7 @@ public class SpinWheelView : BaseMultiEventListener
     [SerializeField] private Image _indicatorImage;
     [SerializeField] private SpinSlotItem[] _slotItems;
 
-    private SpinSlotItemConfig[] _currentShuffledSlots = Array.Empty<SpinSlotItemConfig>();
+    private SpinSlotItemConfig[] _currentRoundSlots = Array.Empty<SpinSlotItemConfig>();
 
     private void OnEnable()
     {
@@ -43,17 +43,32 @@ public class SpinWheelView : BaseMultiEventListener
 
         UpdateStaticVisuals(cfg);
 
-        var rawSlots = cfg.SlotItemConfigs ?? Array.Empty<SpinSlotItemConfig>();
-        _currentShuffledSlots = rawSlots.ShuffledCopy();
+        var allPossibleItems = cfg.SlotItemConfigs ?? Array.Empty<SpinSlotItemConfig>();
 
-        UpdateSlotItems(_currentShuffledSlots);
-        EventManager.Raise(new SpinSlotsUpdatedEvent(_currentShuffledSlots));
+        if (allPossibleItems.Length == 0)
+        {
+            HandleEmptyState();
+            return;
+        }
+
+        var shuffledPool = allPossibleItems.ShuffledCopy();
+
+        int visualSlotCount = _slotItems.Length;
+        _currentRoundSlots = new SpinSlotItemConfig[visualSlotCount];
+
+        for (int i = 0; i < visualSlotCount; i++)
+        {
+            _currentRoundSlots[i] = shuffledPool[i % shuffledPool.Length];
+        }
+
+        UpdateSlotItems(_currentRoundSlots);
+        EventManager.Raise(new SpinSlotsUpdatedEvent(_currentRoundSlots));
     }
 
     private void HandleEmptyState()
     {
-        _currentShuffledSlots = Array.Empty<SpinSlotItemConfig>();
-        EventManager.Raise(new SpinSlotsUpdatedEvent(_currentShuffledSlots));
+        _currentRoundSlots = Array.Empty<SpinSlotItemConfig>();
+        EventManager.Raise(new SpinSlotsUpdatedEvent(_currentRoundSlots));
     }
 
     private void UpdateStaticVisuals(SpinConfig cfg)
