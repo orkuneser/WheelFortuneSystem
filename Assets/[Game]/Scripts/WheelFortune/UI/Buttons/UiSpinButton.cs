@@ -24,13 +24,7 @@ public class UiSpinButton : BaseMultiEventListener
         _button.onClick.AddListener(OnClicked);
 
         AddHandler<SpinStartedEvent>(OnSpinStarted);
-        AddHandler<SpinCompletedEvent>(OnSpinCompleted);
-    }
-
-    private void OnDestroy()
-    {
-        if (_button != null)
-            _button.onClick.RemoveListener(OnClicked);
+        AddHandler<SpinSlotsUpdatedEvent>(OnSpinSlotsUpdated);
     }
 
     private void OnClicked()
@@ -38,8 +32,15 @@ public class UiSpinButton : BaseMultiEventListener
         _spinController.TryStartSpin();
     }
 
-    private void OnSpinStarted(SpinStartedEvent startedEvent) => UpdateInteractable(false);
-    private void OnSpinCompleted(SpinCompletedEvent completedEvent) => UpdateInteractable(true);
+    private void OnSpinStarted(SpinStartedEvent startedEvent)
+    {
+        UpdateInteractable(false);
+    }
+
+    private void OnSpinSlotsUpdated(SpinSlotsUpdatedEvent updatedEvent)
+    {
+        UpdateInteractable(true);
+    }
 
     private void UpdateInteractable(bool interactable)
     {
