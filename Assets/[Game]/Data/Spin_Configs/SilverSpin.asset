@@ -17,11 +17,28 @@ MonoBehaviour:
   SpinTypeTextColor: {r: 0.6603774, g: 0.6572624, b: 0.6603774, a: 1}
   SpinName: SILVER SPIN
   SlotItemConfigs:
-  - {fileID: 11400000, guid: 449787fc8377443b6832a79d9a9a3f7f, type: 2}
-  - {fileID: 11400000, guid: 6c54c56360715421ea30dc5e78303dca, type: 2}
-  - {fileID: 11400000, guid: ada88ab018f2b402e8e69f9450473194, type: 2}
-  - {fileID: 11400000, guid: 30cf0061ac9d64b46ac2e7fe67a0895d, type: 2}
-  - {fileID: 11400000, guid: 12f8211ca2b9a4b5883f83ce2c8345d9, type: 2}
-  - {fileID: 11400000, guid: e8aeef5bd046b41a6b71afd14a7af481, type: 2}
-  - {fileID: 11400000, guid: 30f2a6a5cb76649bcb605b8b10a4b926, type: 2}
-  - {fileID: 11400000, guid: 30cf0061ac9d64b46ac2e7fe67a0895d, type: 2}
+  - {fileID: 11400000, guid: d2557d6767d67489fb347293e46fb5ad, type: 2}
+  - {fileID: 11400000, guid: 6cf157514451f4d379cea07f4d6177b0, type: 2}
+  - {fileID: 11400000, guid: 35556c85029244a258758d8d95888c42, type: 2}
+  - {fileID: 11400000, guid: b3b3465816b324cfd80c0234f0a848ec, type: 2}
+  - {fileID: 11400000, guid: 62729b49a07464602810cb4776bd33cd, type: 2}
+  - {fileID: 11400000, guid: da127b6d4acd148d8ae13b57f9c95a44, type: 2}
+  - {fileID: 11400000, guid: 15bc9629ead984a5692827297dcc17ee, type: 2}
+  - {fileID: 11400000, guid: ea2a62b1b33534d8b8ce85b34432c3bd, type: 2}
+  - {fileID: 11400000, guid: dbb31358d415f42eb938d11f026c43f9, type: 2}
+  - {fileID: 11400000, guid: f2143480ff5e840aba4e0b03ad51432f, type: 2}
+  - {fileID: 11400000, guid: 440fbbaa628d34f11a48c9309b699f8f, type: 2}
+  - {fileID: 11400000, guid: 5b443002e1c4247f491605bd4db3d829, type: 2}
+  - {fileID: 11400000, guid: b2fb72efdd2f64c7c82a13791f52b015, type: 2}
+  - {fileID: 11400000, guid: a77cace1e838248928d9f6ba83010bc1, type: 2}
+  - {fileID: 11400000, guid: 6dcf03ccd0257479ea8a3e7455a1187a, type: 2}
+  - {fileID: 11400000, guid: 1c36e95d701f048848ac2ac4a83f4751, type: 2}
+  - {fileID: 11400000, guid: 32f17386199b348239fd8f748b472325, type: 2}
+  - {fileID: 11400000, guid: b5badcf5faecc4c6490647c3ee1ef250, type: 2}
+  - {fileID: 11400000, guid: aa8ff498f5b944060988458135a7a9ee, type: 2}
+  - {fileID: 11400000, guid: ecc4fe066c91e4120aafeced8d33767d, type: 2}
+  - {fileID: 11400000, guid: 8c67c9911013d4174814dfceb80c5daa, type: 2}
+  - {fileID: 11400000, guid: 7bd10a3f3afcc457f8471e9e3876bcb1, type: 2}
+  - {fileID: 11400000, guid: 340c2d617e4224357a4ab619396809e0, type: 2}
+  - {fileID: 11400000, guid: c013c1aaa321b427a89bce80b0246c9d, type: 2}
+  - {fileID: 11400000, guid: 055d1168932ac400f9a8ebef6d482318, type: 2}

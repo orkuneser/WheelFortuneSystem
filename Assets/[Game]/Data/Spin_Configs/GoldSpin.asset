@@ -17,11 +17,14 @@ MonoBehaviour:
   SpinTypeTextColor: {r: 1, g: 0.65972227, b: 0, a: 1}
   SpinName: GOLD SPIN
   SlotItemConfigs:
-  - {fileID: 11400000, guid: 449787fc8377443b6832a79d9a9a3f7f, type: 2}
-  - {fileID: 11400000, guid: 6c54c56360715421ea30dc5e78303dca, type: 2}
-  - {fileID: 11400000, guid: ada88ab018f2b402e8e69f9450473194, type: 2}
-  - {fileID: 11400000, guid: 30cf0061ac9d64b46ac2e7fe67a0895d, type: 2}
-  - {fileID: 11400000, guid: 12f8211ca2b9a4b5883f83ce2c8345d9, type: 2}
-  - {fileID: 11400000, guid: e8aeef5bd046b41a6b71afd14a7af481, type: 2}
-  - {fileID: 11400000, guid: 30f2a6a5cb76649bcb605b8b10a4b926, type: 2}
-  - {fileID: 11400000, guid: 30cf0061ac9d64b46ac2e7fe67a0895d, type: 2}
+  - {fileID: 11400000, guid: 8a79b46651d7c449b984ec77922aa084, type: 2}
+  - {fileID: 11400000, guid: e2430a2b96dc44262ab16202f4f34e78, type: 2}
+  - {fileID: 11400000, guid: 6084c9ad4807d49768f154adc49cb867, type: 2}
+  - {fileID: 11400000, guid: 5b99d5bcf64764d1abed1917777480e6, type: 2}
+  - {fileID: 11400000, guid: 381ae435f2eba4c1196a64b1e5c711cc, type: 2}
+  - {fileID: 11400000, guid: ebd41f3f4e41a4f1c88f25b02a70b400, type: 2}
+  - {fileID: 11400000, guid: 9a55a66e18d9f4b41a605d1bb5274531, type: 2}
+  - {fileID: 11400000, guid: 7b58f5400cc6845d8967de7d4a1205b1, type: 2}
+  - {fileID: 11400000, guid: 3fb6511f69e4843e1a4db2e8df45f083, type: 2}
+  - {fileID: 11400000, guid: dbb31358d415f42eb938d11f026c43f9, type: 2}
+  - {fileID: 11400000, guid: ea2a62b1b33534d8b8ce85b34432c3bd, type: 2}
