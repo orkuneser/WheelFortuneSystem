@@ -1,9 +1,11 @@
 public struct RewardEarnedEvent : IGameEvent
 {
+    public SpinSlotItemConfig Config;
     public int Amount;
 
-    public RewardEarnedEvent(int amount)
+    public RewardEarnedEvent(SpinSlotItemConfig config, int amount)
     {
+        Config = config;
         Amount = amount;
     }
 }

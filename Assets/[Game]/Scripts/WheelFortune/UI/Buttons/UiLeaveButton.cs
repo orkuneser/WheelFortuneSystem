@@ -16,6 +16,8 @@ public class UiLeaveButton : BaseMultiEventListener
     {
         AddHandler<SpinStartedEvent>(OnSpinStarted);
         AddHandler<ZoneChangedEvent>(OnZoneChanged);
+
+        _button.onClick.AddListener(OnLeaveClicked);
     }
 
     private void Start()
@@ -29,6 +31,12 @@ public class UiLeaveButton : BaseMultiEventListener
     private void UpdateInteractable(bool interactable)
     {
         _button.interactable = interactable;
+    }
+
+    private void OnLeaveClicked()
+    {
+        RewardCollectionManager.Instance.CollectToGlobalWallet();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 
     private void CheckZoneForInteractable()

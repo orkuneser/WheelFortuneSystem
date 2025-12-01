@@ -1,7 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-[CreateAssetMenu(menuName = "Spin/Zone Progress Bar Config")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Zone Progress Bar Config")]
 public class ZoneProgressBarConfig : ScriptableObject
 {
     [Title("Past")]

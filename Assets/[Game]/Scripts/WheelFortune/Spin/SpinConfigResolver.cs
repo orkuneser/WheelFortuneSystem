@@ -10,15 +10,8 @@ public class SpinConfigResolver : MonoBehaviour
 
     public SpinConfig ResolveConfig(int zone)
     {
-        if (zone <= 0)
-            zone = 1;
-
-        if (zone % 30 == 0)
-            return _superConfig;
-
-        if (zone % 5 == 0)
-            return _safeConfig;
-
+        if (ZoneController.Instance.IsSuperZone) return _superConfig;
+        if (ZoneController.Instance.IsSafeZone) return _safeConfig;
         return _normalConfig;
     }
 }

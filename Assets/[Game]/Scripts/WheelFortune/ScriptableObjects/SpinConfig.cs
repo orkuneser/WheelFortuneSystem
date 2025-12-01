@@ -1,7 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-[CreateAssetMenu(menuName = "Spin/Spin Config")]
+[CreateAssetMenu(menuName = "Scriptable Objects/Spin Config")]
 public class SpinConfig : ScriptableObject
 {
     [Title("VISUAL CONFIG")]

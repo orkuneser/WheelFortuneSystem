@@ -15,7 +15,7 @@ public class SpinWheelView : BaseMultiEventListener
     [SerializeField] private Image _indicatorImage;
     [SerializeField] private SpinSlotItem[] _slotItems;
 
-    private SpinSlotItemConfig[] _shuffledSlots = Array.Empty<SpinSlotItemConfig>();
+    private SpinSlotItemConfig[] _currentShuffledSlots = Array.Empty<SpinSlotItemConfig>();
 
     private void OnEnable()
     {
@@ -35,72 +35,52 @@ public class SpinWheelView : BaseMultiEventListener
     private void RefreshWheel()
     {
         var cfg = _configResolver != null ? _configResolver.CurrentConfig : null;
-
         if (cfg == null)
         {
-            _shuffledSlots = Array.Empty<SpinSlotItemConfig>();
-            Debug.LogError("[SpinWheelView] SpinConfigResolver.CurrentConfig null, slotlar boş.");
-            EventManager.Raise(new SpinSlotsUpdatedEvent(_shuffledSlots));
+            HandleEmptyState();
             return;
         }
 
-        if (_spinImage != null)
-            _spinImage.sprite = cfg.SpinSprite;
+        UpdateStaticVisuals(cfg);
 
-        if (_indicatorImage != null)
-            _indicatorImage.sprite = cfg.SpinIndicatorSprite;
+        var rawSlots = cfg.SlotItemConfigs ?? Array.Empty<SpinSlotItemConfig>();
+        _currentShuffledSlots = rawSlots.ShuffledCopy();
 
-        var slots = cfg.SlotItemConfigs ?? Array.Empty<SpinSlotItemConfig>();
-        _shuffledSlots = Shuffle(slots);
+        UpdateSlotItems(_currentShuffledSlots);
+        EventManager.Raise(new SpinSlotsUpdatedEvent(_currentShuffledSlots));
+    }
 
-        int count = Mathf.Min(_slotItems.Length, _shuffledSlots.Length);
+    private void HandleEmptyState()
+    {
+        _currentShuffledSlots = Array.Empty<SpinSlotItemConfig>();
+        EventManager.Raise(new SpinSlotsUpdatedEvent(_currentShuffledSlots));
+    }
 
-        for (int i = 0; i < _slotItems.Length; i++)
-        {
-            var view = _slotItems[i];
-            if (view == null)
-                continue;
-
-            if (i < count)
-            {
-                var itemCfg = _shuffledSlots[i];
-                int displayAmount = (itemCfg != null && !itemCfg.IsBomb)
-                    ? itemCfg.RewardAmount
-                    : 0;
-
-                view.Init(itemCfg, displayAmount);
-                view.gameObject.SetActive(true);
-            }
-            else
-            {
-                view.Init(null, 0);
-                view.gameObject.SetActive(false);
-            }
-        }
+    private void UpdateStaticVisuals(SpinConfig cfg)
+    {
+        if (_spinImage != null) _spinImage.sprite = cfg.SpinSprite;
+        if (_indicatorImage != null) _indicatorImage.sprite = cfg.SpinIndicatorSprite;
 
         if (_spinTypeText != null)
         {
             _spinTypeText.SetText(cfg.SpinName);
             _spinTypeText.color = cfg.SpinTypeTextColor;
         }
-
-        EventManager.Raise(new SpinSlotsUpdatedEvent(_shuffledSlots));
     }
 
-    private static SpinSlotItemConfig[] Shuffle(SpinSlotItemConfig[] source)
+    private void UpdateSlotItems(SpinSlotItemConfig[] slots)
     {
-        int length = source?.Length ?? 0;
-        if (length == 0)
-            return Array.Empty<SpinSlotItemConfig>();
+        int maxSlots = _slotItems.Length;
 
-        var arr = (SpinSlotItemConfig[])source.Clone();
-
-        for (int i = arr.Length - 1; i > 0; i--)
+        for (int i = 0; i < maxSlots; i++)
         {
-            int r = UnityEngine.Random.Range(0, i + 1);
-            (arr[i], arr[r]) = (arr[r], arr[i]);
-        }
+            var view = _slotItems[i];
+            if (view == null) continue;
 
-        return arr;
+            if (i < slots.Length)
+            {
+                view.Init(slots[i]);
+            }
+        }
     }
 }

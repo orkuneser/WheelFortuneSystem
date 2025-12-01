@@ -1,6 +1,5 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
-using DG.Tweening;
 
 public class SpinController : BaseMultiEventListener
 {
@@ -8,13 +7,18 @@ public class SpinController : BaseMultiEventListener
     [SerializeField] private MonoBehaviour _rotatorSource;          // ISpinRotator
     [SerializeField] private MonoBehaviour _outcomeSelectorSource;  // IOutcomeSelector
 
+    [Title("Settings")]
+    [SerializeField] private float _spinDuration;
+
     private ISpinRotator _rotator;
     private IOutcomeSelector _outcomeSelector;
 
     private void OnValidate()
     {
-        AutoAssignInterface<ISpinRotator>(ref _rotatorSource);
-        AutoAssignInterface<IOutcomeSelector>(ref _outcomeSelectorSource);
+        if (_rotatorSource == null)
+            _rotatorSource = GetComponentInChildren<ISpinRotator>() as MonoBehaviour;
+        if (_outcomeSelectorSource == null)
+            _outcomeSelectorSource = GetComponentInChildren<IOutcomeSelector>() as MonoBehaviour;
     }
 
     private void Awake()
@@ -25,68 +29,37 @@ public class SpinController : BaseMultiEventListener
     private void OnEnable()
     {
         AddHandler<SpinCompletedEvent>(OnSpinCompleted);
-        AddHandler<RewardEarnedEvent>(OnRewardEarned);
+        AddHandler<RewardAnimationCompletedEvent>(OnRewardAnimationFinished);
     }
 
     private void CacheInterfaces()
     {
-        if (_rotatorSource is ISpinRotator rotator)
-            _rotator = rotator;
-
-        if (_outcomeSelectorSource is IOutcomeSelector selector)
-            _outcomeSelector = selector;
+        if (_rotatorSource is ISpinRotator rotator) _rotator = rotator;
+        if (_outcomeSelectorSource is IOutcomeSelector selector) _outcomeSelector = selector;
     }
 
     [Button]
     public void TryStartSpin()
     {
-        if (_rotator == null || _outcomeSelector == null)
-            CacheInterfaces();
+        if (_rotator == null || _outcomeSelector == null) CacheInterfaces();
+        if (_rotator == null || _outcomeSelector == null || _rotator.IsSpinning) return;
 
-        if (_rotator == null || _outcomeSelector == null)
-            return;
-
-        if (_rotator.IsSpinning)
-            return;
-
-        // UI elemanlarını kilitlemek için event fırlatıyoruz
         EventManager.Raise(new SpinStartedEvent());
-
-        // Hedef açıyı belirleyip döndürmeye başla
         float angle = _outcomeSelector.GenerateTargetAngle();
-        _rotator.RotateTo(angle, 2f);
+        _rotator.RotateTo(angle, _spinDuration);
     }
 
-    // Çark durduğunda çalışır
     private void OnSpinCompleted(SpinCompletedEvent completedEvent)
     {
-        if (_outcomeSelector == null)
-            CacheInterfaces();
-
-        if (_outcomeSelector == null)
-            return;
-
-        _outcomeSelector.ResolveOutcome(completedEvent.FinalAngle);
+        if (_outcomeSelector == null) CacheInterfaces();
+        _outcomeSelector?.ResolveOutcome(completedEvent.FinalAngle);
     }
 
-    private void OnRewardEarned(RewardEarnedEvent evt)
+    private void OnRewardAnimationFinished(RewardAnimationCompletedEvent evt)
     {
-        DOVirtual.DelayedCall(1.5f, () =>
+        if (ZoneController.Instance != null)
         {
-            if (ZoneController.Instance != null)
-            {
-                ZoneController.Instance.NextZone();
-            }
-        });
-    }
-
-    private void AutoAssignInterface<TInterface>(ref MonoBehaviour source)
-    {
-        if (source != null && source is TInterface)
-            return;
-
-        var component = FindFirstObjectByType<MonoBehaviour>();
-        if (component is TInterface)
-            source = component;
+            ZoneController.Instance.NextZone();
+        }
     }
 }

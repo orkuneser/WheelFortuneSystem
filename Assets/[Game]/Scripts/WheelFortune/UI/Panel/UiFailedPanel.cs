@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 
-public class FailedPanel : UiFadePanel
+public class UiFailedPanel : UiFadePanel
 {
     [Title("Buttons")]
     [SerializeField] private Button _giveUpButton;

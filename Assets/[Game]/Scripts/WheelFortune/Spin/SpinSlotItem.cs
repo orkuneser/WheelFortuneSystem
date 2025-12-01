@@ -12,8 +12,6 @@ public class SpinSlotItem : BaseMultiEventListener
     [SerializeField] private Image _iconImage;
     [SerializeField] private TMP_Text _rewardText;
 
-    private SpinSlotItemConfig _config;
-
     private void OnValidate()
     {
         if (_collider == null)
@@ -26,31 +24,25 @@ public class SpinSlotItem : BaseMultiEventListener
         AddHandler<SpinCompletedEvent>(OnSpinCompleted);
     }
 
-    public void Init(SpinSlotItemConfig config, int displayAmount)
+    public void Init(SpinSlotItemConfig config)
     {
-        _config = config;
+        if (config == null) return;
 
-        if (_iconImage != null)
-            _iconImage.sprite = config.Icon;
+        _iconImage.sprite = config.Icon;
 
-        if (_rewardText != null)
-        {
-            if (config.IsBomb)
-                _rewardText.text = config.ItemName;
-            else
-                _rewardText.text = "X" + ScoreFormatter.FormatF2(displayAmount);
-        }
+        if (config.Type == RewardType.Bomb)
+            _rewardText.text = config.DisplayName;
+        else
+            _rewardText.text = "x" + ScoreFormatter.FormatF2(config.RewardAmount);
     }
 
     private void OnSpinStarted(SpinStartedEvent startedEvent)
     {
-        if (_collider != null)
-            _collider.enabled = true;
+        if (_collider != null) _collider.enabled = true;
     }
 
     private void OnSpinCompleted(SpinCompletedEvent completedEvent)
     {
-        if (_collider != null)
-            _collider.enabled = false;
+        if (_collider != null) _collider.enabled = false;
     }
 }
