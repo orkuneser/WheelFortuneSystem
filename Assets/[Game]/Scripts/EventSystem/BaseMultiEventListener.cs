@@ -18,8 +18,8 @@ public abstract class BaseMultiEventListener : MonoBehaviour
     protected void AddHandlerOnce<TEvent>(Action<TEvent> handler)
         where TEvent : struct, IGameEvent
     {
-        EventManager.AddOnce<TEvent>(handler);
-        _registrations.Add((typeof(TEvent), handler, true));
+        var wrapper = EventManager.AddOnceReturnWrapper<TEvent>(handler);
+        _registrations.Add((typeof(TEvent), wrapper, true));
     }
 
     protected virtual void OnDisable()
