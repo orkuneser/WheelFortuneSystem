@@ -48,7 +48,7 @@ public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
 
         if (index < 0 || index >= sliceCount) return;
 
-        var slot = _currentSlots[index];
+        SpinSlotItemConfig slot = _currentSlots[index];
         if (slot == null) return;
 
         if (slot.Type == RewardType.Bomb)
@@ -57,13 +57,7 @@ public class SpinOutcomeSelector : BaseMultiEventListener, IOutcomeSelector
             return;
         }
 
-        var zoneCtrl = ZoneController.Instance;
-        int finalAmount = RewardCalculator.CalculateZoneScaledReward(
-            slot.RewardAmount,
-            zoneCtrl.CurrentZone,
-            zoneCtrl.IsSuperZone
-        );
-
+        int finalAmount = slot.RewardAmount;
         EventManager.Raise(new RewardEarnedEvent(slot, finalAmount));
     }
 

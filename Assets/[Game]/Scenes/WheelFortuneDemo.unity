@@ -2187,7 +2187,7 @@ MonoBehaviour:
   _delayBeforeFinish: 0.2
   _flyingIconPrefab: {fileID: 799847860300722040, guid: 011ad369da3aa406f81e7714d262174a, type: 3}
   _spawnCenter: {fileID: 76387870}
-  _targetPanelContainer: {fileID: 2131204172}
+  _targetPanelContainer: {fileID: 882746484}
 --- !u!1 &519695429
 GameObject:
   m_ObjectHideFlags: 0
