@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpinSprite: {fileID: 21300000, guid: 9a5c0f1e3f62e47f7983bdbf0d39bbd3, type: 3}
   SpinIndicatorSprite: {fileID: 21300000, guid: 26f159aeb573e4df69e71e5a87e1a009, type: 3}
-  DisplayTextColor: {r: 0.8901961, g: 0.69803923, b: 0.32156864, a: 1}
+  SpinTypeTextColor: {r: 1, g: 0.65972227, b: 0, a: 1}
   SpinName: GOLD SPIN
   SlotItemConfigs:
   - {fileID: 11400000, guid: 449787fc8377443b6832a79d9a9a3f7f, type: 2}

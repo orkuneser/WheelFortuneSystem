@@ -7,7 +7,6 @@ public interface IGameEvent { }
 public static class EventManager
 {
     private static readonly Dictionary<Type, HashSet<Delegate>> _eventMap = new();
-    private static Delegate[] _snapshotBuffer = new Delegate[16];
 
 #if UNITY_EDITOR
     private static bool _debug = false;
@@ -70,16 +69,11 @@ public static class EventManager
         if (!_eventMap.TryGetValue(type, out var set) || set.Count == 0)
             return;
 
-        int count = set.Count;
+        var handlers = new List<Delegate>(set);
 
-        if (_snapshotBuffer.Length < count)
-            Array.Resize(ref _snapshotBuffer, count * 2);
-
-        set.CopyTo(_snapshotBuffer);
-
-        for (int i = 0; i < count; i++)
+        foreach (var handler in handlers)
         {
-            if (_snapshotBuffer[i] is Action<T> action)
+            if (handler is Action<T> action)
             {
                 try
                 {
@@ -91,8 +85,6 @@ public static class EventManager
                 }
             }
         }
-
-        Array.Clear(_snapshotBuffer, 0, count);
     }
 
     public static void ClearAll() => _eventMap.Clear();
