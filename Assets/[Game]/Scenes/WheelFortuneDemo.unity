@@ -2180,7 +2180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemSpawnCount: 5
-  _scatterRadius: 200
+  _scatterRadius: 50
   _scatterDuration: 0.5
   _flyDuration: 0.8
   _delayAfterScatter: 0.1
